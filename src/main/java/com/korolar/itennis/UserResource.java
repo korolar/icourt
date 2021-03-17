@@ -1,7 +1,7 @@
-package com.korolar.biztravel;
+package com.korolar.itennis;
 
-import com.korolar.biztravel.entity.User;
-import com.korolar.biztravel.repositories.UserRepository;
+import com.korolar.itennis.entity.User;
+import com.korolar.itennis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

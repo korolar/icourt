@@ -1,6 +1,6 @@
-package com.korolar.biztravel.repositories;
+package com.korolar.itennis.repositories;
 
-import com.korolar.biztravel.entity.User;
+import com.korolar.itennis.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

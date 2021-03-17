@@ -1,9 +1,9 @@
-package com.korolar.biztravel;
+package com.korolar.itennis;
 
-import com.korolar.biztravel.entity.BusinessRole;
-import com.korolar.biztravel.entity.SecurityRole;
-import com.korolar.biztravel.entity.User;
-import com.korolar.biztravel.repositories.UserRepository;
+import com.korolar.itennis.entity.BusinessRole;
+import com.korolar.itennis.entity.SecurityRole;
+import com.korolar.itennis.entity.User;
+import com.korolar.itennis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 
 @Service public class MyUserDetailsService implements UserDetailsService {

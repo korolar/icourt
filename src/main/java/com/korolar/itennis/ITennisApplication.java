@@ -1,13 +1,13 @@
-package com.korolar.biztravel;
+package com.korolar.itennis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BiztravelApplication {
+public class ITennisApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BiztravelApplication.class, args);
+		SpringApplication.run(ITennisApplication.class, args);
 	}
 
 }

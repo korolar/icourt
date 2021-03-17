@@ -1,4 +1,4 @@
-package com.korolar.biztravel.entity;
+package com.korolar.itennis.entity;
 
 import com.sun.istack.NotNull;
 

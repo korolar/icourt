@@ -1,4 +1,4 @@
-package com.korolar.biztravel.enums;
+package com.korolar.itennis.enums;
 
 public enum EBusinessRole {
 	PLAYER,

@@ -1,6 +1,6 @@
-package com.korolar.biztravel.repositories;
+package com.korolar.itennis.repositories;
 
-import com.korolar.biztravel.entity.Club;
+import com.korolar.itennis.entity.Club;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClubRepository extends JpaRepository<Club, Long> {

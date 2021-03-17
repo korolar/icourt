@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.korolar</groupId>
-	<artifactId>biztravel</artifactId>
+	<artifactId>itennis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>biztravel</name>
+	<name>itennis</name>
 	<description>Demo project for Spring Boot for Business Travel</description>
 	<properties>
 		<java.version>11</java.version>

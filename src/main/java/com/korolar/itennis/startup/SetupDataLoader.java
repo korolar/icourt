@@ -1,13 +1,13 @@
-package com.korolar.biztravel.startup;
+package com.korolar.itennis.startup;
 
-import com.korolar.biztravel.entity.BusinessRole;
-import com.korolar.biztravel.entity.SecurityRole;
-import com.korolar.biztravel.entity.User;
-import com.korolar.biztravel.enums.EBusinessRole;
-import com.korolar.biztravel.enums.ESecurityRole;
-import com.korolar.biztravel.repositories.BusinessRoleRepository;
-import com.korolar.biztravel.repositories.SecurityRoleRepository;
-import com.korolar.biztravel.repositories.UserRepository;
+import com.korolar.itennis.entity.BusinessRole;
+import com.korolar.itennis.entity.SecurityRole;
+import com.korolar.itennis.entity.User;
+import com.korolar.itennis.enums.EBusinessRole;
+import com.korolar.itennis.enums.ESecurityRole;
+import com.korolar.itennis.repositories.BusinessRoleRepository;
+import com.korolar.itennis.repositories.SecurityRoleRepository;
+import com.korolar.itennis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

@@ -1,4 +1,4 @@
-package com.korolar.biztravel;
+package com.korolar.itennis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

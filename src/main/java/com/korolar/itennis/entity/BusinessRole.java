@@ -1,20 +1,25 @@
-package com.korolar.biztravel.entity;
+package com.korolar.itennis.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity
-public class SecurityRole {
+public class BusinessRole {
 
 	@Id
-	@Column(name = "security_role_id")
+	@Column(name = "business_role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "securityRoles")
+	@ManyToMany(mappedBy = "businessRoles")
 	private List<User> users;
 
 	public Long getId() {
