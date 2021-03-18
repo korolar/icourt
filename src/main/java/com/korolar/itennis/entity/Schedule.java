@@ -39,7 +39,4 @@ public class Schedule {
 			inverseJoinColumns = @JoinColumn(name = "club_id")
 	)
 	private Club club;
-
-	@ManyToMany(mappedBy = "scheduleList")
-	private List<User> users;
 }

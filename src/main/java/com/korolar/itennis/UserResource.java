@@ -15,16 +15,13 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserResource {
 
-	@Autowired
-	private UserRepository userRepository;
+	@Autowired private UserRepository userRepository;
 
-	@GetMapping("/users")
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
+	@GetMapping("/users") public List<User> getAllUsers() {
+		return (List<User>) userRepository.findAll();
 	}
 
-	@PostMapping("/users")
-	void addUser(@RequestBody User user) {
+	@PostMapping("/users") void addUser(@RequestBody User user) {
 		//todo: add user validation
 		userRepository.save(user);
 	}

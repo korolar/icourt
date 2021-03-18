@@ -24,7 +24,4 @@ public class Package {
 
 	@NotNull
 	private BigDecimal remainingAmount;
-
-	@ManyToMany(mappedBy = "packageList")
-	private List<User> users;
 }

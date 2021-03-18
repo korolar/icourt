@@ -19,9 +19,6 @@ public class BusinessRole {
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "businessRoles")
-	private List<User> users;
-
 	public Long getId() {
 		return id;
 	}
@@ -38,11 +35,4 @@ public class BusinessRole {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 }
