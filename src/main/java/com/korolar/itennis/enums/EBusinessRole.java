@@ -1,7 +1,5 @@
 package com.korolar.itennis.enums;
 
 public enum EBusinessRole {
-	PLAYER,
-	OWNER,
-	TRAINER;
+	ROLE_PLAYER, ROLE_OWNER, ROLE_TRAINER;
 }

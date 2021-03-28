@@ -20,7 +20,7 @@ public class Schedule {
 
 	@Id
 	@Column(name = "schedule_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
 	private Long id;
 
 	@NotNull
@@ -30,7 +30,10 @@ public class Schedule {
 	private Boolean played;
 
 	@NotNull
-	private LocalDateTime date;
+	private LocalDateTime beginning;
+
+	@NotNull
+	private LocalDateTime end;
 
 	@ManyToOne
 	@JoinTable(
@@ -39,4 +42,44 @@ public class Schedule {
 			inverseJoinColumns = @JoinColumn(name = "club_id")
 	)
 	private Club club;
+
+	public BigDecimal getValue() {
+		return value;
+	}
+
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
+
+	public Boolean getPlayed() {
+		return played;
+	}
+
+	public void setPlayed(Boolean played) {
+		this.played = played;
+	}
+
+	public LocalDateTime getBeginning() {
+		return beginning;
+	}
+
+	public void setBeginning(LocalDateTime beginning) {
+		this.beginning = beginning;
+	}
+
+	public LocalDateTime getEnd() {
+		return end;
+	}
+
+	public void setEnd(LocalDateTime end) {
+		this.end = end;
+	}
+
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
 }

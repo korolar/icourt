@@ -1,7 +1,11 @@
 package com.korolar.itennis.entity;
 
+import com.korolar.itennis.enums.EBusinessRole;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,11 +17,11 @@ public class BusinessRole {
 
 	@Id
 	@Column(name = "business_role_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private String name;
+	@Enumerated(EnumType.STRING)
+	private EBusinessRole name;
 
 	public Long getId() {
 		return id;
@@ -27,12 +31,11 @@ public class BusinessRole {
 		this.id = id;
 	}
 
-	public String getName() {
+	public EBusinessRole getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(EBusinessRole name) {
 		this.name = name;
 	}
-
 }

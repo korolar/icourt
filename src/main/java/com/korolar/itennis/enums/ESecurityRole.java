@@ -1,7 +1,7 @@
 package com.korolar.itennis.enums;
 
 public enum ESecurityRole {
-	ADMIN,
-	READ_WRITE,
-	READ;
+	ROLE_ADMIN,
+	ROLE_READ_WRITE,
+	ROLE_READ;
 }

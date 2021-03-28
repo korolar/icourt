@@ -8,9 +8,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity public class Club {
+@Entity
+public class Club {
 
-	@Id @Column(name = "club_id") @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	@Id
+	@Column(name = "club_id")
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	private Long id;
 
-	@NotNull private String name;
+	@Column(nullable = false, unique = true)
+	@NotNull
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

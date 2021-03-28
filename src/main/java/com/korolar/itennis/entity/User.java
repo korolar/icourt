@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,13 +62,9 @@ public class User {
 	)
 	private Club club;
 
-	@ManyToMany
-	@JoinTable(
-			name = "users_packages",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "package_id")
-	)
-	private List<Package> packageList;
+
+	@NotNull
+	private BigDecimal leftAmount;
 
 	@ManyToMany
 	@JoinTable(
@@ -76,6 +73,14 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "schedule_id")
 	)
 	private List<Schedule> scheduleList;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -133,12 +138,12 @@ public class User {
 		this.club = club;
 	}
 
-	public List<Package> getPackageList() {
-		return packageList;
+	public BigDecimal getLeftAmount() {
+		return leftAmount;
 	}
 
-	public void setPackageList(List<Package> packageList) {
-		this.packageList = packageList;
+	public void setLeftAmount(BigDecimal leftAmount) {
+		this.leftAmount = leftAmount;
 	}
 
 	public List<Schedule> getScheduleList() {

@@ -1,5 +1,8 @@
 package com.korolar.itennis.entity;
 
+import com.korolar.itennis.enums.EBusinessRole;
+import com.korolar.itennis.enums.ESecurityRole;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,11 +11,11 @@ public class SecurityRole {
 
 	@Id
 	@Column(name = "security_role_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private String name;
+	@Enumerated(EnumType.STRING)
+	private ESecurityRole name;
 
 	public Long getId() {
 		return id;
@@ -22,11 +25,11 @@ public class SecurityRole {
 		this.id = id;
 	}
 
-	public String getName() {
+	public ESecurityRole getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(ESecurityRole name) {
 		this.name = name;
 	}
 }
