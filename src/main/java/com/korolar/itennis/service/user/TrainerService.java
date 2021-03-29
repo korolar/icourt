@@ -1,8 +1,11 @@
 package com.korolar.itennis.service.user;
 
+import com.korolar.itennis.dto.user.ScheduleDto;
 import com.korolar.itennis.dto.user.TrainerDto;
-import com.korolar.itennis.dto.user.UserDto;
+import com.korolar.itennis.entity.BusinessRole;
+import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.enums.EBusinessRole;
+import com.korolar.itennis.repositories.BusinessRoleRepository;
 import com.korolar.itennis.service.schedule.ScheduleService;
 import com.korolar.itennis.service.utils.BusinessRuleUtils;
 import com.korolar.itennis.service.utils.UserUtils;
@@ -13,6 +16,8 @@ import org.springframework.web.client.ResourceAccessException;
 import com.korolar.itennis.entity.User;
 import com.korolar.itennis.repositories.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service(value = "trainer_service")
@@ -23,6 +28,12 @@ public class TrainerService implements IUserService<TrainerDto, User> {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PlayerService playerService;
+
+	@Autowired
+	private BusinessRoleRepository businessRoleRepository;
 
 	@Override
 	public TrainerDto getEntityAsDto(Long id) {
@@ -33,14 +44,22 @@ public class TrainerService implements IUserService<TrainerDto, User> {
 	public TrainerDto fromEntity(User user) {
 		TrainerDto trainerDto = new TrainerDto();
 		UserUtils.mapFromUserToDto(user, trainerDto);
-		trainerDto.setScheduleList(scheduleService.fromEntities(user.getScheduleList()));
+		trainerDto.setScheduleList(getScheduleListWithPlayersForUser(user));
 		return trainerDto;
 	}
 
-	public void mapFromUserToDto(User user, UserDto userDto) {
-		userDto.setId(user.getId());
-		userDto.setFirstName(user.getFirstName());
-		userDto.setLastName(user.getLastName());
+	private List<ScheduleDto> getScheduleListWithPlayersForUser(User user ){
+		BusinessRole byName = businessRoleRepository.findByName(EBusinessRole.ROLE_PLAYER);
+		List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+		for(Schedule schedule : user.getScheduleList()){
+			List<User> listUsers = userRepository
+					.findByScheduleListIsContainingAndBusinessRolesIsContaining(schedule, byName);
+			ScheduleDto scheduleDto = scheduleService.fromEntity(schedule);
+			scheduleDto.setPlayers(playerService.fromEntities(listUsers));
+			scheduleDtoList.add(scheduleDto);
+		}
+
+		return scheduleDtoList;
 	}
 
 	/**

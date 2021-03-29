@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ITennisApplication {
+public class IMatchApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ITennisApplication.class, args);
+		SpringApplication.run(IMatchApplication.class, args);
 	}
 
 }

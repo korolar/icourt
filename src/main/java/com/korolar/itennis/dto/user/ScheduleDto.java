@@ -3,6 +3,7 @@ package com.korolar.itennis.dto.user;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ScheduleDto implements Serializable {
 
@@ -13,6 +14,15 @@ public class ScheduleDto implements Serializable {
 	private LocalDateTime end;
 	private String club;
 	private TrainerDto trainerDto;
+	private List<PlayerDto> players;
+
+	public List<PlayerDto> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<PlayerDto> players) {
+		this.players = players;
+	}
 
 	public BigDecimal getValue() {
 		return value;

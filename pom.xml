@@ -12,7 +12,7 @@
 	<artifactId>imatch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>imatch</name>
-	<description>Demo project for Spring Boot for Business Travel</description>
+	<description>Project for management of a Tennis club</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
