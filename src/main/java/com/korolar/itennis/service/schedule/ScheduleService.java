@@ -21,7 +21,7 @@ public class ScheduleService implements ISchedulerService {
 	private IUserService userService;
 
 	@Autowired
-	private IUserDtoService<UserDto, User> userDtoService;
+	private IUserDtoService userDtoService;
 
 	@Override
 	public List<ScheduleDto> getScheduleForPlayer(Long id) {
@@ -40,7 +40,15 @@ public class ScheduleService implements ISchedulerService {
 	@Override
 	public List<ScheduleDto> getScheduleForTrainer(Long id) {
 		User user = userService.getUserWithBusinessRole(id, EBusinessRole.ROLE_TRAINER);
-		return getScheduleListWithPlayersForTrainer(user);
+
+		List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+		for (Schedule schedule : user.getScheduleList()) {
+			ScheduleDto scheduleDto = fromEntity(schedule);
+			scheduleDto.setPlayers(userDtoService.fromEntities(userService.getPlayersForSchedule(schedule)));
+			scheduleDtoList.add(scheduleDto);
+		}
+
+		return scheduleDtoList;
 	}
 
 	private ScheduleDto fromEntity(Schedule schedule) {
@@ -51,17 +59,6 @@ public class ScheduleService implements ISchedulerService {
 		scheduleDto.setValue(schedule.getValue());
 		scheduleDto.setPlayed(schedule.getPlayed());
 		return scheduleDto;
-	}
-
-	private List<ScheduleDto> getScheduleListWithPlayersForTrainer(User user) {
-		List<ScheduleDto> scheduleDtoList = new ArrayList<>();
-		for (Schedule schedule : user.getScheduleList()) {
-			ScheduleDto scheduleDto = fromEntity(schedule);
-			scheduleDto.setPlayers(userDtoService.fromEntities(userService.getPlayersForSchedule(schedule)));
-			scheduleDtoList.add(scheduleDto);
-		}
-
-		return scheduleDtoList;
 	}
 
 }

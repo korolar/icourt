@@ -7,11 +7,11 @@ import com.korolar.itennis.dto.user.UserDto;
 import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.entity.User;
 
-public interface IUserDtoService<T, R> {
+public interface IUserDtoService {
 
-	T getEntityAsDto(R entity);
+	UserDto getEntityAsDto(User entity);
 
-	default List<T> fromEntities(List<R> users) {
+	default List<UserDto> fromEntities(List<User> users) {
 		return users.stream().map(this::getEntityAsDto).collect(Collectors.toList());
 	}
 

@@ -63,7 +63,7 @@ public class UserService implements IUserService {
 	 */
 	@Override
 	public User getUser(Long id) {
-		return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User with id " + id + " not found"));
+		return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User with id " + id + " not found!"));
 	}
 
 	/**
@@ -75,6 +75,6 @@ public class UserService implements IUserService {
 	@Override
 	public User getUserWithBusinessRole(Long id, EBusinessRole eBusinessRole) {
 		Optional<User> user = userRepository.findByIdAndBusinessRolesName(id, eBusinessRole);
-		return user.orElseThrow(() -> new NoSuchElementException("No user with id " + id + " and role " + eBusinessRole.name()));
+		return user.orElseThrow(() -> new NoSuchElementException("User with id " + id + " and role " + eBusinessRole.name() + " not found!"));
 	}
 }

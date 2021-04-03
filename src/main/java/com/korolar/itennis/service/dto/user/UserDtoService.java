@@ -8,7 +8,7 @@ import com.korolar.itennis.dto.user.UserDto;
 import com.korolar.itennis.entity.User;
 
 @Service
-public class UserDtoService implements IUserDtoService<UserDto, User> {
+public class UserDtoService implements IUserDtoService {
 
 	@Autowired
 	private IUserService userService;

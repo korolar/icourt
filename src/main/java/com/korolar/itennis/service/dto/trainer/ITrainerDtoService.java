@@ -7,7 +7,5 @@ import com.korolar.itennis.entity.Club;
 
 public interface ITrainerDtoService {
 
-	List<TrainerDto> getTrainersWithScheduleForClub(Club club);
-
 	List<TrainerDto> getTrainersWithScheduleForOwner(Long id);
 }

@@ -24,7 +24,12 @@ public class TrainerDtoService implements ITrainerDtoService {
 	private IUserService userService;
 
 	@Override
-	public List<TrainerDto> getTrainersWithScheduleForClub(Club club) {
+	public List<TrainerDto> getTrainersWithScheduleForOwner(Long id) {
+		User user = userService.getUserWithBusinessRole(id, EBusinessRole.ROLE_OWNER);
+		return getTrainersWithScheduleForClub(user.getClub());
+	}
+
+	private List<TrainerDto> getTrainersWithScheduleForClub(Club club) {
 		List<User> listUsers = userService.getTrainersForClub(club);
 
 		if (CollectionUtils.isEmpty(listUsers)) {
@@ -46,11 +51,5 @@ public class TrainerDtoService implements ITrainerDtoService {
 		}
 
 		return trainerDtos;
-	}
-
-	@Override
-	public List<TrainerDto> getTrainersWithScheduleForOwner(Long id) {
-		User user = userService.getUserWithBusinessRole(id, EBusinessRole.ROLE_OWNER);
-		return getTrainersWithScheduleForClub(user.getClub());
 	}
 }
