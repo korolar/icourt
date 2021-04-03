@@ -1,16 +1,15 @@
 package com.korolar.itennis.service.schedule;
 
+import com.korolar.itennis.dto.user.ScheduleDto;
+import com.korolar.itennis.entity.Schedule;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface ISchedulerService<T, R> {
+public interface ISchedulerService {
 
-	T getEntityAsDto(Long id);
+	List<ScheduleDto> getScheduleForPlayer(Long id);
 
-	T fromEntity(R dto);
-
-	default List<T> fromEntities(List<R> dtos) {
-		return dtos.stream().map(this::fromEntity).collect(Collectors.toList());
-	}
+	List<ScheduleDto> getScheduleForTrainer(Long id);
 
 }

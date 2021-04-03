@@ -13,14 +13,14 @@ public class ScheduleDto implements Serializable {
 	private LocalDateTime beginning;
 	private LocalDateTime end;
 	private String club;
-	private TrainerDto trainerDto;
-	private List<PlayerDto> players;
+	private UserDto trainerDto;
+	private List<UserDto> players;
 
-	public List<PlayerDto> getPlayers() {
+	public List<UserDto> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(List<PlayerDto> players) {
+	public void setPlayers(List<UserDto> players) {
 		this.players = players;
 	}
 
@@ -72,11 +72,11 @@ public class ScheduleDto implements Serializable {
 		this.id = id;
 	}
 
-	public TrainerDto getTrainerDto() {
+	public UserDto getTrainerDto() {
 		return trainerDto;
 	}
 
-	public void setTrainerDto(TrainerDto trainerDto) {
+	public void setTrainerDto(UserDto trainerDto) {
 		this.trainerDto = trainerDto;
 	}
 }

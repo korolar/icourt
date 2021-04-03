@@ -1,16 +1,22 @@
 package com.korolar.itennis.service.user;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public interface IUserService<T, R> {
+import com.korolar.itennis.entity.Club;
+import com.korolar.itennis.entity.Schedule;
+import com.korolar.itennis.entity.User;
+import com.korolar.itennis.enums.EBusinessRole;
 
-	T getEntityAsDto(Long id);
+public interface IUserService {
 
-	T fromEntity(R dto);
+	User getUser(Long id);
 
-	default List<T> fromEntities(List<R> dtos) {
-		return dtos.stream().map(this::fromEntity).collect(Collectors.toList());
-	}
+	User getUserWithBusinessRole(Long id, EBusinessRole eBusinessRole);
+
+	List<User> getPlayersForSchedule(Schedule schedule);
+
+	User getTrainerForSchedule(Schedule schedule);
+
+	List<User> getTrainersForClub(Club club);
 
 }

@@ -1,25 +1,49 @@
 package com.korolar.itennis.service.schedule;
 
-import com.korolar.itennis.dto.user.ScheduleDto;
-import com.korolar.itennis.entity.Schedule;
-import com.korolar.itennis.repositories.ScheduleRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
-@Service(value = "schedule_service")
-public class ScheduleService implements ISchedulerService<ScheduleDto, Schedule> {
+import com.korolar.itennis.dto.user.ScheduleDto;
+import com.korolar.itennis.dto.user.UserDto;
+import com.korolar.itennis.entity.Schedule;
+import com.korolar.itennis.entity.User;
+import com.korolar.itennis.enums.EBusinessRole;
+import com.korolar.itennis.service.dto.user.IUserDtoService;
+import com.korolar.itennis.service.user.IUserService;
+
+@Service
+public class ScheduleService implements ISchedulerService {
 
 	@Autowired
-	private ScheduleRepository scheduleRepository;
+	private IUserService userService;
+
+	@Autowired
+	private IUserDtoService<UserDto, User> userDtoService;
 
 	@Override
-	public ScheduleDto getEntityAsDto(Long id) {
-		return fromEntity(getScheduleFromRepository(id));
+	public List<ScheduleDto> getScheduleForPlayer(Long id) {
+		User user = userService.getUserWithBusinessRole(id, EBusinessRole.ROLE_PLAYER);
+
+		List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+		for (Schedule schedule : user.getScheduleList()) {
+			ScheduleDto scheduleDto = fromEntity(schedule);
+			scheduleDto.setTrainerDto(userDtoService.getEntityAsDto(userService.getTrainerForSchedule(schedule)));
+			scheduleDtoList.add(scheduleDto);
+		}
+
+		return scheduleDtoList;
 	}
 
 	@Override
-	public ScheduleDto fromEntity(Schedule schedule) {
+	public List<ScheduleDto> getScheduleForTrainer(Long id) {
+		User user = userService.getUserWithBusinessRole(id, EBusinessRole.ROLE_TRAINER);
+		return getScheduleListWithPlayersForTrainer(user);
+	}
+
+	private ScheduleDto fromEntity(Schedule schedule) {
 		ScheduleDto scheduleDto = new ScheduleDto();
 		scheduleDto.setBeginning(schedule.getBeginning());
 		scheduleDto.setEnd(schedule.getEnd());
@@ -29,14 +53,15 @@ public class ScheduleService implements ISchedulerService<ScheduleDto, Schedule>
 		return scheduleDto;
 	}
 
-	/**
-	 * Get by user Id from repository
-	 * 
-	 * @param id
-	 * @return if found return User, throw exception otherwise
-	 */
-	private Schedule getScheduleFromRepository(Long id) {
-		return scheduleRepository.findById(id).orElseThrow(() -> new ResourceAccessException("User with id " + id + " not found"));
+	private List<ScheduleDto> getScheduleListWithPlayersForTrainer(User user) {
+		List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+		for (Schedule schedule : user.getScheduleList()) {
+			ScheduleDto scheduleDto = fromEntity(schedule);
+			scheduleDto.setPlayers(userDtoService.fromEntities(userService.getPlayersForSchedule(schedule)));
+			scheduleDtoList.add(scheduleDto);
+		}
+
+		return scheduleDtoList;
 	}
 
 }
