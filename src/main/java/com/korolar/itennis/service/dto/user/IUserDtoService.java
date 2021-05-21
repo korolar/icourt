@@ -11,8 +11,14 @@ public interface IUserDtoService {
 
 	UserDto getEntityAsDto(User entity);
 
+	User getDtoAsEntity(UserDto entity);
+
 	default List<UserDto> fromEntities(List<User> users) {
 		return users.stream().map(this::getEntityAsDto).collect(Collectors.toList());
+	}
+
+	default List<User> fromDtos(List<UserDto> users) {
+		return users.stream().map(this::getDtoAsEntity).collect(Collectors.toList());
 	}
 
 	UserDto getById(Long id);

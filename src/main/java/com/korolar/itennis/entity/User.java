@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
@@ -73,6 +74,14 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "schedule_id")
 	)
 	private List<Schedule> scheduleList;
+
+	@OneToMany
+	@JoinTable(
+			name = "users_package",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "package_id")
+	)
+	private List<SubscriptionPackage> packageList;
 
 	public Long getId() {
 		return id;
@@ -152,5 +161,13 @@ public class User {
 
 	public void setScheduleList(List<Schedule> scheduleList) {
 		this.scheduleList = scheduleList;
+	}
+
+	public List<SubscriptionPackage> getPackageList() {
+		return packageList;
+	}
+
+	public void setPackageList(List<SubscriptionPackage> packageList) {
+		this.packageList = packageList;
 	}
 }

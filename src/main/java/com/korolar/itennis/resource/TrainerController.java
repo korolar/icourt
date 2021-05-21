@@ -1,7 +1,7 @@
 package com.korolar.itennis.resource;
 
-import com.korolar.itennis.dto.user.ScheduleDto;
-import com.korolar.itennis.service.schedule.ISchedulerService;
+import com.korolar.itennis.dto.schedule.ScheduleDto;
+import com.korolar.itennis.service.dto.schedule.ISchedulerDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +15,10 @@ import java.util.List;
 public class TrainerController {
 
 	@Autowired
-	private ISchedulerService schedulerService;
+	private ISchedulerDtoService schedulerService;
 
 	@GetMapping(value = "/trainer/{id}")
-	public List<ScheduleDto> getUserById(@PathVariable("id") Long id) {
+	public List<ScheduleDto> getScheduleForTrainer(@PathVariable("id") Long id) {
 		return schedulerService.getScheduleForTrainer(id);
 	}
 

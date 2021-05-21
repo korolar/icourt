@@ -1,6 +1,6 @@
 package com.korolar.itennis.service.dto.user;
 
-import com.korolar.itennis.service.user.IUserService;
+import com.korolar.itennis.service.dao.user.IUserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import com.korolar.itennis.entity.User;
 public class UserDtoService implements IUserDtoService {
 
 	@Autowired
-	private IUserService userService;
+	private IUserDaoService userService;
 
 	@Override
 	public UserDto getEntityAsDto(User user) {
@@ -19,6 +19,14 @@ public class UserDtoService implements IUserDtoService {
 		userDto.setId(user.getId());
 		userDto.setFirstName(user.getFirstName());
 		userDto.setLastName(user.getLastName());
+		return userDto;
+	}
+
+	@Override public User getDtoAsEntity(UserDto entity) {
+		User userDto = new User();
+		userDto.setId(entity.getId());
+		userDto.setFirstName(entity.getFirstName());
+		userDto.setLastName(entity.getLastName());
 		return userDto;
 	}
 

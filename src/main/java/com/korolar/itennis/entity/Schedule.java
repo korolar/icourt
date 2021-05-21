@@ -12,7 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
@@ -30,18 +30,18 @@ public class Schedule {
 	private Boolean played;
 
 	@NotNull
-	private LocalDateTime beginning;
+	private OffsetDateTime beginning;
 
 	@NotNull
-	private LocalDateTime end;
+	private OffsetDateTime end;
 
 	@ManyToOne
 	@JoinTable(
-			name = "schedule_club",
+			name = "schedule_location",
 			joinColumns = @JoinColumn(name = "schedule_id"),
-			inverseJoinColumns = @JoinColumn(name = "club_id")
+			inverseJoinColumns = @JoinColumn(name = "location_id")
 	)
-	private Club club;
+	private Location club;
 
 	public BigDecimal getValue() {
 		return value;
@@ -59,27 +59,27 @@ public class Schedule {
 		this.played = played;
 	}
 
-	public LocalDateTime getBeginning() {
+	public OffsetDateTime getBeginning() {
 		return beginning;
 	}
 
-	public void setBeginning(LocalDateTime beginning) {
+	public void setBeginning(OffsetDateTime beginning) {
 		this.beginning = beginning;
 	}
 
-	public LocalDateTime getEnd() {
+	public OffsetDateTime getEnd() {
 		return end;
 	}
 
-	public void setEnd(LocalDateTime end) {
+	public void setEnd(OffsetDateTime end) {
 		this.end = end;
 	}
 
-	public Club getClub() {
+	public Location getLocation() {
 		return club;
 	}
 
-	public void setClub(Club club) {
+	public void setLocation(Location club) {
 		this.club = club;
 	}
 }

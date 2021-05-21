@@ -1,5 +1,7 @@
 package com.korolar.itennis.dto.user;
 
+import com.korolar.itennis.dto.schedule.ScheduleDto;
+
 import java.io.Serializable;
 import java.util.List;
 

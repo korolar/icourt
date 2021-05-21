@@ -1,4 +1,4 @@
-package com.korolar.itennis.service.user;
+package com.korolar.itennis.service.businessdao.user;
 
 import java.util.List;
 
@@ -7,16 +7,13 @@ import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.entity.User;
 import com.korolar.itennis.enums.EBusinessRole;
 
-public interface IUserService {
+public interface ITrainerService {
 
-	User getUser(Long id);
-
-	User getUserWithBusinessRole(Long id, EBusinessRole eBusinessRole);
-
-	List<User> getPlayersForSchedule(Schedule schedule);
+	void addScheduleToTrainer(Long trainerId, Schedule schedule);
 
 	User getTrainerForSchedule(Schedule schedule);
 
 	List<User> getTrainersForClub(Club club);
 
+	User getTrainerById(Long id);
 }

@@ -1,12 +1,13 @@
-package com.korolar.itennis.service.user;
+package com.korolar.itennis.service.dao.user;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.korolar.itennis.entity.Club;
-import org.apache.commons.collections.CollectionUtils;
+import com.korolar.itennis.service.dao.role.IRoleDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.entity.BusinessRole;
@@ -17,42 +18,41 @@ import com.korolar.itennis.repositories.BusinessRoleRepository;
 import com.korolar.itennis.repositories.UserRepository;
 
 @Service
-public class UserService implements IUserService {
+public class UserDaoService implements IUserDaoService {
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
-	private BusinessRoleRepository businessRoleRepository;
+	private IRoleDaoService roleDaoService;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 
 	@Override
-	public List<User> getPlayersForSchedule(Schedule schedule) {
-		BusinessRole byName = businessRoleRepository.findByName(EBusinessRole.ROLE_PLAYER);
+	public List<User> getUsersByScheduleAndBusinessRole(Schedule schedule, EBusinessRole eBusinessRole) {
+		BusinessRole byName = roleDaoService.getByName(eBusinessRole);
 		return userRepository.findByScheduleListIsContainingAndBusinessRolesIsContaining(schedule, byName);
 	}
 
 	@Override
-	public User getTrainerForSchedule(Schedule schedule) {
-		BusinessRole byName = businessRoleRepository.findByName(EBusinessRole.ROLE_TRAINER);
-		List<User> listUsers = userRepository.findByScheduleListIsContainingAndBusinessRolesIsContaining(schedule, byName);
-
-		if (CollectionUtils.isEmpty(listUsers)) {
-			//throw some exception bcs no trainers are assigned to schedule
-			return null;
-		}
-
-		if (listUsers.size() > 1) {
-			//throw some exception bcs to much trainers are assigned to schedule
-			return null;
-		}
-
-		return listUsers.get(0);
+	public List<User> getUsersByClubAndRole(Club club, EBusinessRole eBusinessRole) {
+		BusinessRole byName = roleDaoService.getByName(eBusinessRole);
+		return userRepository.findByBusinessRolesIsContainingAndClub(byName, club);
 	}
 
 	@Override
-	public List<User> getTrainersForClub(Club club) {
-		BusinessRole byName = businessRoleRepository.findByName(EBusinessRole.ROLE_TRAINER);
-		return userRepository.findByBusinessRolesIsContainingAndClub(byName, club);
+	public User createUser(User user) {
+		//temporary
+		user.setUsername(user.getFirstName());
+		user.setPassword(passwordEncoder.encode("testing"));
+		return userRepository.save(user);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userRepository.save(user);
 	}
 
 	/**

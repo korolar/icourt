@@ -1,19 +1,22 @@
-package com.korolar.itennis.dto.user;
+package com.korolar.itennis.dto.schedule;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
+
+import com.korolar.itennis.dto.location.LocationDto;
+import com.korolar.itennis.dto.user.UserDto;
 
 public class ScheduleDto implements Serializable {
 
 	private Long id;
 	private BigDecimal value;
 	private Boolean played;
-	private LocalDateTime beginning;
-	private LocalDateTime end;
-	private String club;
-	private UserDto trainerDto;
+	private OffsetDateTime beginning;
+	private OffsetDateTime end;
+	private LocationDto location;
+	private UserDto trainer;
 	private List<UserDto> players;
 
 	public List<UserDto> getPlayers() {
@@ -40,28 +43,28 @@ public class ScheduleDto implements Serializable {
 		this.played = played;
 	}
 
-	public LocalDateTime getBeginning() {
+	public OffsetDateTime getBeginning() {
 		return beginning;
 	}
 
-	public void setBeginning(LocalDateTime beginning) {
+	public void setBeginning(OffsetDateTime beginning) {
 		this.beginning = beginning;
 	}
 
-	public LocalDateTime getEnd() {
+	public OffsetDateTime getEnd() {
 		return end;
 	}
 
-	public void setEnd(LocalDateTime end) {
+	public void setEnd(OffsetDateTime end) {
 		this.end = end;
 	}
 
-	public String getClub() {
-		return club;
+	public LocationDto getLocation() {
+		return location;
 	}
 
-	public void setClub(String club) {
-		this.club = club;
+	public void setLocation(LocationDto location) {
+		this.location = location;
 	}
 
 	public Long getId() {
@@ -72,11 +75,11 @@ public class ScheduleDto implements Serializable {
 		this.id = id;
 	}
 
-	public UserDto getTrainerDto() {
-		return trainerDto;
+	public UserDto getTrainer() {
+		return trainer;
 	}
 
-	public void setTrainerDto(UserDto trainerDto) {
-		this.trainerDto = trainerDto;
+	public void setTrainer(UserDto trainer) {
+		this.trainer = trainer;
 	}
 }
