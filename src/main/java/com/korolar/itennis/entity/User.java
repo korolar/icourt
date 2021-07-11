@@ -1,6 +1,9 @@
 package com.korolar.itennis.entity;
 
-import com.sun.istack.NotNull;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,17 +17,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import com.sun.istack.NotNull;
+
+import lombok.Data;
 
 @Entity
+@Data
 public class User {
 
 	@Id
 	@Column(name = "user_id")
-	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@NotNull
@@ -40,134 +44,25 @@ public class User {
 	private String password;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "users_sec_roles",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "security_role_id")
-	)
+	@JoinTable(name = "users_sec_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "security_role_id"))
 	private Set<SecurityRole> securityRoles = new HashSet<>();
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "users_bus_roles",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "business_role_id")
-	)
+	@JoinTable(name = "users_bus_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "business_role_id"))
 	private Set<BusinessRole> businessRoles = new HashSet<>();
 
 	@ManyToOne
-	@JoinTable(
-			name = "users_club",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "club_id")
-	)
+	@JoinTable(name = "users_club", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "club_id"))
 	private Club club;
-
 
 	@NotNull
 	private BigDecimal leftAmount;
 
 	@ManyToMany
-	@JoinTable(
-			name = "users_schedule",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "schedule_id")
-	)
+	@JoinTable(name = "users_schedule", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "schedule_id"))
 	private List<Schedule> scheduleList;
 
 	@OneToMany
-	@JoinTable(
-			name = "users_package",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "package_id")
-	)
+	@JoinTable(name = "users_package", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "package_id"))
 	private List<SubscriptionPackage> packageList;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String email) {
-		this.username = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Set<SecurityRole> getSecurityRoles() {
-		return securityRoles;
-	}
-
-	public void setSecurityRoles(Set<SecurityRole> securityRoles) {
-		this.securityRoles = securityRoles;
-	}
-
-	public Set<BusinessRole> getBusinessRoles() {
-		return businessRoles;
-	}
-
-	public void setBusinessRoles(Set<BusinessRole> businessRoles) {
-		this.businessRoles = businessRoles;
-	}
-
-	public Club getClub() {
-		return club;
-	}
-
-	public void setClub(Club club) {
-		this.club = club;
-	}
-
-	public BigDecimal getLeftAmount() {
-		return leftAmount;
-	}
-
-	public void setLeftAmount(BigDecimal leftAmount) {
-		this.leftAmount = leftAmount;
-	}
-
-	public List<Schedule> getScheduleList() {
-		return scheduleList;
-	}
-
-	public void setScheduleList(List<Schedule> scheduleList) {
-		this.scheduleList = scheduleList;
-	}
-
-	public List<SubscriptionPackage> getPackageList() {
-		return packageList;
-	}
-
-	public void setPackageList(List<SubscriptionPackage> packageList) {
-		this.packageList = packageList;
-	}
 }
