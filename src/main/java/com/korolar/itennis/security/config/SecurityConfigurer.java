@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import com.korolar.itennis.security.jwt.JwtAuthenticationEntryPoint;
 import com.korolar.itennis.security.jwt.JwtAuthenticationFilter;
@@ -23,6 +25,8 @@ import com.korolar.itennis.security.jwt.JwtAuthenticationFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
+
+	private static final String[] CSRF_IGNORE = { "/token/**", "/generate-token/**" };
 
 	@Resource
 	private UserDetailsService userDetailsService;
@@ -49,7 +53,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	//@formatter:off
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
+		http.cors().and().csrf() // csrf config starts here
+				.ignoringAntMatchers(CSRF_IGNORE) // URI where CSRF check will not be applied
+				.csrfTokenRepository(csrfTokenRepository()) // defines a repository where tokens are stored
+				.and()
 				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.authorizeRequests().antMatchers("/token/**").permitAll()
@@ -75,4 +82,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	private CsrfTokenRepository csrfTokenRepository() {
+		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		repository.setHeaderName(CustomCsrfFilter.CSRF_COOKIE_NAME);
+		return repository;
+	}
 }
