@@ -1,31 +1,29 @@
 package com.korolar.itennis.service.token;
 
-import com.korolar.itennis.dto.auth.AuthorizationToken;
-import com.korolar.itennis.dto.auth.LoginUser;
-import com.korolar.itennis.security.userdetails.CustomUserDetails;
-import com.korolar.itennis.security.jwt.JwtTokenUtil;
-import com.korolar.itennis.security.userdetails.MyUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.korolar.itennis.dto.auth.AuthorizationToken;
+import com.korolar.itennis.dto.auth.LoginUser;
+import com.korolar.itennis.security.jwt.JwtTokenUtil;
+import com.korolar.itennis.security.userdetails.CustomUserDetails;
+import com.korolar.itennis.security.userdetails.MyUserDetailsService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService implements ITokenService {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
-
-	@Autowired
-	private MyUserDetailsService userDetailsService;
+	private final AuthenticationManager authenticationManager;
+	private final JwtTokenUtil jwtTokenUtil;
+	private final MyUserDetailsService userDetailsService;
 
 	@Override
 	public AuthorizationToken getAuthorizationToken(LoginUser authenticationRequest) {

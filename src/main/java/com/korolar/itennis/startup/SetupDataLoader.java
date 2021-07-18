@@ -8,8 +8,6 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import com.korolar.itennis.service.dao.location.ILocationDaoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,39 +24,27 @@ import com.korolar.itennis.enums.EBusinessRole;
 import com.korolar.itennis.enums.ESecurityRole;
 import com.korolar.itennis.repositories.BusinessRoleRepository;
 import com.korolar.itennis.repositories.ClubRepository;
-import com.korolar.itennis.repositories.SubscriptionPackageRepository;
 import com.korolar.itennis.repositories.ScheduleRepository;
 import com.korolar.itennis.repositories.SecurityRoleRepository;
+import com.korolar.itennis.repositories.SubscriptionPackageRepository;
 import com.korolar.itennis.repositories.UserRepository;
+import com.korolar.itennis.service.dao.location.ILocationDaoService;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
 	boolean alreadySetup = false;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private ClubRepository clubRepository;
-
-	@Autowired
-	private ILocationDaoService locationDaoService;
-
-	@Autowired
-	private SecurityRoleRepository roleRepository;
-
-	@Autowired
-	private BusinessRoleRepository businessRoleRepository;
-
-	@Autowired
-	private ScheduleRepository scheduleRepository;
-
-	@Autowired
-	private SubscriptionPackageRepository packageRepository;
-
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private final UserRepository userRepository;
+	private final ClubRepository clubRepository;
+	private final ILocationDaoService locationDaoService;
+	private final SecurityRoleRepository roleRepository;
+	private final BusinessRoleRepository businessRoleRepository;
+	private final ScheduleRepository scheduleRepository;
+	private final SubscriptionPackageRepository packageRepository;
+	private final BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	@Transactional

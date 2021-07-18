@@ -1,21 +1,23 @@
 package com.korolar.itennis.resource;
 
-import com.korolar.itennis.dto.schedule.ScheduleDto;
-import com.korolar.itennis.service.dto.schedule.ISchedulerDtoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.korolar.itennis.dto.schedule.ScheduleDto;
+import com.korolar.itennis.service.dto.schedule.ISchedulerDtoService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class TrainerController {
 
-	@Autowired
-	private ISchedulerDtoService schedulerService;
+	private final ISchedulerDtoService schedulerService;
 
 	@GetMapping(value = "/trainer/{id}")
 	public List<ScheduleDto> getScheduleForTrainer(@PathVariable("id") Long id) {

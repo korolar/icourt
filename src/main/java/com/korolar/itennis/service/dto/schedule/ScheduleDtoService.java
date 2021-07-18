@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.korolar.itennis.service.businessdao.schedule.IScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.dto.location.LocationDto;
@@ -13,26 +11,21 @@ import com.korolar.itennis.dto.schedule.ScheduleDto;
 import com.korolar.itennis.dto.user.UserDto;
 import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.entity.User;
+import com.korolar.itennis.service.businessdao.schedule.IScheduleService;
 import com.korolar.itennis.service.businessdao.user.IPlayerService;
 import com.korolar.itennis.service.businessdao.user.ITrainerService;
-import com.korolar.itennis.service.dao.location.ILocationDaoService;
-import com.korolar.itennis.service.dao.schedule.IScheduleDaoService;
 import com.korolar.itennis.service.dto.user.IUserDtoService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ScheduleDtoService implements ISchedulerDtoService {
 
-	@Autowired
-	private IPlayerService playerService;
-
-	@Autowired
-	private ITrainerService trainerService;
-
-	@Autowired
-	private IUserDtoService userDtoService;
-
-	@Autowired
-	private IScheduleService scheduleService;
+	private final IPlayerService playerService;
+	private final ITrainerService trainerService;
+	private final IUserDtoService userDtoService;
+	private final IScheduleService scheduleService;
 
 	@Override
 	public List<ScheduleDto> createSchedule(List<ScheduleDto> createScheduleDto) {

@@ -3,17 +3,18 @@ package com.korolar.itennis.service.dao.location;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.entity.Location;
 import com.korolar.itennis.repositories.LocationRepository;
-import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class LocationDaoService implements ILocationDaoService {
 
-	@Autowired
-	private LocationRepository locationRepository;
+	private final LocationRepository locationRepository;
 
 	@Override
 	public List<Location> getAllLocations() {

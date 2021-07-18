@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,24 +16,31 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import com.korolar.itennis.security.jwt.JwtAuthenticationEntryPoint;
 import com.korolar.itennis.security.jwt.JwtAuthenticationFilter;
+import com.korolar.itennis.security.jwt.JwtTokenUtil;
+import com.korolar.itennis.security.userdetails.MyUserDetailsService;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	private static final String[] CSRF_IGNORE = { "/token/**", "/generate-token/**" };
 
+	private final JwtAuthenticationEntryPoint unauthorizedHandler;
+	private final MyUserDetailsService myUserDetailsService;
+	private final JwtTokenUtil jwtTokenUtil;
+
 	@Resource
 	private UserDetailsService userDetailsService;
-
-	@Autowired
-	private JwtAuthenticationEntryPoint unauthorizedHandler;
 
 	@Override
 	@Bean
@@ -47,7 +55,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
-		return new JwtAuthenticationFilter();
+		return new JwtAuthenticationFilter(myUserDetailsService, jwtTokenUtil);
 	}
 
 	@Override
@@ -55,11 +63,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf() // csrf config starts here
 				.ignoringAntMatchers(CSRF_IGNORE) // URI where CSRF check will not be applied
-				.csrfTokenRepository(csrfTokenRepository()) // defines a repository where tokens are stored
+				.csrfTokenRepository(csrfTokenRepository())// defines a repository where tokens are stored
 				.and()
 				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeRequests().antMatchers("/token/**").permitAll()
+				.authorizeRequests().antMatchers(HttpMethod.POST,"/token/**").permitAll()
 				.antMatchers("/h2").permitAll()
 				.antMatchers("/owner/*").access("hasRole('ROLE_OWNER')")
 				.antMatchers("/player/*").access("hasRole('ROLE_PLAYER')")
@@ -74,6 +82,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.usernameParameter("username");
 
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterAfter(new CustomCsrfFilter(), CsrfFilter.class);
 	}
 	// @formatter:on
 

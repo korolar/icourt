@@ -2,21 +2,22 @@ package com.korolar.itennis.service.businessdao.user;
 
 import java.util.List;
 
-import com.korolar.itennis.service.dao.user.IUserDaoService;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.entity.Club;
 import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.entity.User;
 import com.korolar.itennis.enums.EBusinessRole;
+import com.korolar.itennis.service.dao.user.IUserDaoService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class TrainerService implements ITrainerService {
 
-	@Autowired
-	private IUserDaoService userService;
+	private final IUserDaoService userService;
 
 	@Override
 	public User getTrainerForSchedule(Schedule schedule) {

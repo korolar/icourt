@@ -1,9 +1,5 @@
 package com.korolar.itennis.service.user;
 
-import com.korolar.itennis.repositories.BusinessRoleRepository;
-import com.korolar.itennis.repositories.UserRepository;
-import com.korolar.itennis.service.dao.user.IUserDaoService;
-import com.korolar.itennis.service.dao.user.UserDaoService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -11,27 +7,30 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.korolar.itennis.repositories.BusinessRoleRepository;
+import com.korolar.itennis.repositories.UserRepository;
+import com.korolar.itennis.service.dao.user.IUserDaoService;
+import com.korolar.itennis.service.dao.user.UserDaoService;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 public class UserServiceTest {
 
-	@MockBean
-	private UserRepository userRepository;
-
-	@MockBean
-	private BusinessRoleRepository businessRoleRepository;
-
-	@Autowired
-	private IUserDaoService userService;
-
-	@TestConfiguration
-	static class UserServiceImplTestContextConfiguration {
-		@Bean
-		public IUserDaoService userService() {
-			return new UserDaoService();
-		}
-	}
+//	@MockBean
+//	private UserRepository userRepository;
+//
+//	@MockBean
+//	private BusinessRoleRepository businessRoleRepository;
+//
+//	@Autowired
+//	private IUserDaoService userService;
+//
+//	@TestConfiguration
+//	static class UserServiceImplTestContextConfiguration {
+//		@Bean
+//		public IUserDaoService userService() {
+//			return new UserDaoService();
+//		}
+//	}
 
 //	@Test
 //	public void shouldReturnPlayersAssignedToSchedule() {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.dto.user.TrainerDto;
@@ -16,20 +15,16 @@ import com.korolar.itennis.service.businessdao.user.ITrainerService;
 import com.korolar.itennis.service.dto.schedule.ISchedulerDtoService;
 import com.korolar.itennis.service.dto.user.IUserDtoService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TrainerDtoService implements ITrainerDtoService {
 
-	@Autowired
-	private ISchedulerDtoService scheduleService;
-
-	@Autowired
-	private IOwnerService ownerService;
-
-	@Autowired
-	private ITrainerService trainerService;
-
-	@Autowired
-	private IUserDtoService userDtoService;
+	private final ISchedulerDtoService scheduleService;
+	private final IOwnerService ownerService;
+	private final ITrainerService trainerService;
+	private final IUserDtoService userDtoService;
 
 	@Override
 	public List<TrainerDto> getTrainersWithScheduleForOwner(Long id) {

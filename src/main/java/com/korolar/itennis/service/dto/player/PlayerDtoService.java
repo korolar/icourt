@@ -3,7 +3,6 @@ package com.korolar.itennis.service.dto.player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.dto.schedule.ScheduleDto;
@@ -17,23 +16,17 @@ import com.korolar.itennis.service.dto.schedule.ISchedulerDtoService;
 import com.korolar.itennis.service.dto.subpackage.ISubPackageDtoService;
 import com.korolar.itennis.service.dto.user.IUserDtoService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PlayerDtoService implements IPlayerDtoService {
 
-	@Autowired
-	private IPlayerService playerService;
-
-	@Autowired
-	private IOwnerService ownerService;
-
-	@Autowired
-	private IUserDtoService userDtoService;
-
-	@Autowired
-	private ISchedulerDtoService schedulerService;
-
-	@Autowired
-	private ISubPackageDtoService packageDtoService;
+	private final IPlayerService playerService;
+	private final IOwnerService ownerService;
+	private final IUserDtoService userDtoService;
+	private final ISchedulerDtoService schedulerService;
+	private final ISubPackageDtoService packageDtoService;
 
 	@Override
 	public List<UserDto> createPlayersForOwner(Long id, List<UserDto> userDto) {

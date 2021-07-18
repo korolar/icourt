@@ -2,7 +2,6 @@ package com.korolar.itennis.service.businessdao.schedule;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.entity.Schedule;
@@ -11,20 +10,16 @@ import com.korolar.itennis.service.businessdao.user.ITrainerService;
 import com.korolar.itennis.service.dao.location.ILocationDaoService;
 import com.korolar.itennis.service.dao.schedule.IScheduleDaoService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ScheduleService implements IScheduleService {
 
-	@Autowired
-	private IScheduleDaoService scheduleDaoService;
-
-	@Autowired
-	private IPlayerService playerService;
-
-	@Autowired
-	private ITrainerService trainerService;
-
-	@Autowired
-	private ILocationDaoService locationDaoService;
+	private final IScheduleDaoService scheduleDaoService;
+	private final IPlayerService playerService;
+	private final ITrainerService trainerService;
+	private final ILocationDaoService locationDaoService;
 
 	@Override
 	public Schedule createSchedule(Schedule schedule, Long trainerId, List<Long> playersId, Long locationId) {

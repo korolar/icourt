@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import com.korolar.itennis.enums.ESecurityRole;
-import com.korolar.itennis.service.dao.role.IRoleDaoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.entity.Club;
@@ -15,26 +12,27 @@ import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.entity.SubscriptionPackage;
 import com.korolar.itennis.entity.User;
 import com.korolar.itennis.enums.EBusinessRole;
+import com.korolar.itennis.enums.ESecurityRole;
+import com.korolar.itennis.service.dao.role.IRoleDaoService;
 import com.korolar.itennis.service.dao.user.IUserDaoService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PlayerService implements IPlayerService {
 
-	@Autowired
-	private IUserDaoService userService;
-
-	@Autowired
-	private IOwnerService ownerService;
-
-	@Autowired
-	private IRoleDaoService roleDaoService;
+	private final IUserDaoService userService;
+	private final IOwnerService ownerService;
+	private final IRoleDaoService roleDaoService;
 
 	@Override
 	public List<User> getPlayersForSchedule(Schedule schedule) {
 		return userService.getUsersByScheduleAndBusinessRole(schedule, EBusinessRole.ROLE_PLAYER);
 	}
 
-	@Override public User getPlayerById(Long id) {
+	@Override
+	public User getPlayerById(Long id) {
 		return userService.getUserWithBusinessRole(id, EBusinessRole.ROLE_PLAYER);
 	}
 

@@ -4,31 +4,26 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import com.korolar.itennis.entity.Club;
-import com.korolar.itennis.service.dao.role.IRoleDaoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.korolar.itennis.entity.BusinessRole;
+import com.korolar.itennis.entity.Club;
 import com.korolar.itennis.entity.Schedule;
 import com.korolar.itennis.entity.User;
 import com.korolar.itennis.enums.EBusinessRole;
-import com.korolar.itennis.repositories.BusinessRoleRepository;
 import com.korolar.itennis.repositories.UserRepository;
+import com.korolar.itennis.service.dao.role.IRoleDaoService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserDaoService implements IUserDaoService {
 
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private IRoleDaoService roleDaoService;
-
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
+	private final UserRepository userRepository;
+	private final IRoleDaoService roleDaoService;
+	private final BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public List<User> getUsersByScheduleAndBusinessRole(Schedule schedule, EBusinessRole eBusinessRole) {
